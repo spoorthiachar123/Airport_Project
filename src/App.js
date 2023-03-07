@@ -7,6 +7,7 @@ import SearchForm from './pages/SearchForm.js';
 import LoadingBar from 'react-top-loading-bar';
 
 
+
 function App() {
 const [progress, setProgress] = useState(0);
   return (

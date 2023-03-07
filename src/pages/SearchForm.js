@@ -1,9 +1,12 @@
 import React,{useState} from "react";
+import moment from 'moment';
 
 const SearchForm = () => {
+    const today=moment().format('YYYY-MM-DD').toString()
+    const tomorrow=moment().add(1,'days').format('YYYY-MM-DD').toString()
     const[departureAirport,setDepartureAirport ]= useState('');
-    const[parkingCheckIn,setParkingCheckIn ]= useState('');
-    const[parkingCheckOut,setParkingCheckOut ]= useState('');
+    const[parkingCheckIn,setParkingCheckIn ]= useState(today);
+    const[parkingCheckOut,setParkingCheckOut ]= useState(tomorrow);
     const[errors,SetErrors]=useState({
         departureAirport:false,
         parkingCheckIn:false,
@@ -14,11 +17,16 @@ const SearchForm = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         //i'm printing all the data fetched in console just to verify everything works fine
-        //console.log(departureAirport);
-        //console.log(parkingCheckIn);
-        //console.log(parkingCheckOut);
+        console.log(departureAirport);
+        console.log(parkingCheckIn);
+        console.log(parkingCheckOut);
+        if(moment(parkingCheckIn)>moment(parkingCheckOut))
+        {
+            alert("Check out date is greater than check in date!!")
+            SetErrors((err)=>({...err,parkingCheckOut:true}))
+        }
 
-        if(departureAirport && parkingCheckIn && parkingCheckOut)
+        else if(departureAirport && parkingCheckIn && parkingCheckOut)
         {
             alert("Form Submitted")
         }
@@ -36,22 +44,27 @@ const SearchForm = () => {
     const parkingCheckOutHandler =(e) => {
         const {value}=e.target;
             setParkingCheckOut(value);
+            if(moment(parkingCheckIn)>moment(parkingCheckOut))
+            {
+                
+                SetErrors((err)=>({...err,parkingCheckOut:true}))
+            }
         if(e.target.value){
-            SetErrors({
-                ...errors,
-                parkingCheckOut:false
-            })
-        }
+            SetErrors((err)=>({...err,parkingCheckIn:false}))
+         }
+         else{
+             SetErrors((err)=>({...err,parkingCheckOut:true}))  
+         }
 
     }
     const parkingCheckInHandler =(e) => {
         const {value}=e.target;
             setParkingCheckIn(value);
         if(e.target.value){
-            SetErrors({
-                ...errors,
-                parkingCheckIn:false
-            })
+           SetErrors((err)=>({...err,parkingCheckIn:false}))
+        }
+        else{
+            SetErrors((err)=>({...err,parkingCheckIn:true}))  
         }
     }
     const departureAirportHandler =(e) => {
@@ -60,12 +73,13 @@ const SearchForm = () => {
             setDepartureAirport(value);
         }
         if(e.target.value){
-            SetErrors({
-                ...errors,
-                departureAirport:false
-            })
+            SetErrors((err)=>({...err,departureAirport:false}))
+        }
+        else{
+            SetErrors((err)=>({...err,departureAirport:true}))  
         }
     }
+    
     
     return (
         <section id="hero"
