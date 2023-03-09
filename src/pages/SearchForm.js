@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import React,{useState} from "react";
 import moment from 'moment';
+import axios from 'axios';
+
 
 const SearchForm = () => {
     const today=moment().format('YYYY-MM-DD').toString()
@@ -79,7 +82,17 @@ const SearchForm = () => {
             SetErrors((err)=>({...err,departureAirport:true}))  
         }
     }
-    
+   const[records,setRecords]=useState([]);
+   const[loading,setLoading]=useState(false);
+   const fetchData=async()=>{
+    setLoading(true)
+    const {data}=await axios.get('http://43.205.1.85:9009/v1/airports')
+    setLoading(false)
+    setRecords(data.results)
+   }
+   useEffect(()=>{
+    fetchData()
+   },[])
     
     return (
         <section id="hero"
@@ -115,6 +128,18 @@ const SearchForm = () => {
                                 <input type="text" placeholder="Departure Airport" 
                                 onChange={departureAirportHandler} 
                                 value={departureAirport} className="placeholder placeholder-airport"/>
+                                <ul>
+                                   {records.map((record,index)=>{
+                                     const isEven = index%2;
+                                       return (
+                                         <li key={index}style={{backgroundColor:isEven?'grey':'silver'}}>
+                                             {record.name}
+                                         </li>
+                                              )
+                                             }
+                                         )} 
+                                     </ul>
+
                             {(errors && errors.departureAirport)? <h4 style={{color:"white",backgroundColor:"purple"}}>Invaild Departure Airport</h4>:null}
                             </div> <i
                                 className="fas fa-map-marker-alt input-icon"></i>
