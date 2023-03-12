@@ -59,13 +59,9 @@ const HomePage =()=>{
                     </section>
                 </us-page-home>
             </div>
-
-
-            <Footer />
         </div>
     </div>
     )
 }
 
 export default HomePage;
-
