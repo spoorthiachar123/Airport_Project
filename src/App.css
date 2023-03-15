@@ -27,6 +27,7 @@
 .App-link {
   color: #61dafb;
 }
+
 #hero {
   background-image: url("./pages/assets/generic_landing.jpg");
 }
@@ -35,6 +36,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

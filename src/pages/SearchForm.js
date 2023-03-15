@@ -1,145 +1,147 @@
-import { useEffect } from 'react';
-import React,{useState} from "react";
-import moment from 'moment';
-import axios from 'axios';
-import AirportSuggetions from "./AirportSuggetions";
+
+import React from "react";
+import { useState } from "react";
+// moment is used to get the time of checkin and checkout
+import moment from "moment";
+// axios is use to fecth a data from api
+import axios from "axios";
+import { useEffect } from "react";
+import AirportSuggetions from "../component/AirportSuggetions";
 import { useNavigate } from "react-router-dom";
-
-
 const SearchForm = () => {
-    const [airports, setAirports] = useState([]);
-    const [filteredAirports, setFilteredAirports] = useState("");
-  
-    const navigate = useNavigate();
-    const [records, setRecords] = useState([]);
-    const [Loading, setLoading] = useState(true);
-    const fetchData = async () => {
-      setLoading(true);
-      const { data } = await axios.get("http://43.205.1.85:9009/v1/airports");
-      setLoading(false);
-      setRecords(data.results);
-    };
-  
-    useEffect(() => {
-      fetchData();
-    }, []);
-  
-    useEffect(() => {
-      getAirport();
-    }, []);
-  
-    const selectAirport = (value) => {
-      setDepartureAirport(value);
-      setFilteredAirports([]);
-    };
-  
-    const getAirport = async () => {
-      try {
-        const { data, status } = await axios.get(
-          "http://43.205.1.85:9009/v1/airports"
-        );
-        if (status === 200 && data) {
-          setAirports(data?.results ?? []);
-        } else {
-          setAirports([]);
-        }
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.log(error.message);
-      }
-    };
-  
-    const today=moment().format('YYYY-MM-DD').toString()
-    const tomorrow=moment().add(1,'days').format('YYYY-MM-DD').toString()
-    const[departureAirport,setDepartureAirport ]= useState('');
-    const[parkingCheckIn,setParkingCheckIn ]= useState(today);
-    const[parkingCheckOut,setParkingCheckOut ]= useState(tomorrow);
-    const[errors,SetErrors]=useState({
-        departureAirport:false,
-        parkingCheckIn:false,
-        parkingCheckOut:false
+  // useState is used to change or reassign the perticular value during any changes
+  const [airports, setAirports] = useState([]);
+  const [filteredAirports, setFilteredAirports] = useState("");
 
-    })
+  const navigate = useNavigate();
+  const [records, setRecords] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  // async function return the promises
+  const fetchData = async () => {
+    setLoading(true);
+// await wont execute below statements until data is fecth from URL
+    const { data } = await axios.get("http://43.205.1.85:9009/v1/airports");
+    setLoading(false);
+    setRecords(data.results);
+  };
 
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        //i'm printing all the data fetched in console just to verify everything works fine
-       
-    if(moment(parkingCheckIn)>moment(parkingCheckOut)){  
-            alert("Check out date is greater than check in date!!")
-            SetErrors((err)=>({...err,parkingCheckOut:true}))
-        }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-        else
-        {
-            if (departureAirport && parkingCheckIn && parkingCheckOut) {
-                navigate(
-                  `/results?departureAirport=${departureAirport}&parkingCheckIn=${parkingCheckIn}&parkingCheckOut=${parkingCheckOut}`
-                );
-            alert("Form Submitted")
-        }
-        else{
-            SetErrors({
-                departureAirport:!departureAirport,
-                parkingCheckIn:!parkingCheckIn,
-                parkingCheckOut:!parkingCheckOut
-            });
-        }
+  useEffect(() => {
+    getAirport();
+  }, []);
 
-        console.log(departureAirport);
-        console.log(parkingCheckIn);
-        console.log(parkingCheckOut); 
-    }
-};
+  const selectAirport = (value) => {
+    setDepartureAirport(value);
+    setFilteredAirports([]);
+  };
 
-    const parkingCheckOutHandler =(e) => {
-        const {value}=e.target;
-            setParkingCheckOut(value);
-            if(moment(parkingCheckIn)>moment(parkingCheckOut))
-            {
-                
-                SetErrors((err)=>({...err,parkingCheckOut:true}))
-            }
-        if(e.target.value){
-            SetErrors((err)=>({...err,parkingCheckIn:false}))
-         }
-         else{
-             SetErrors((err)=>({...err,parkingCheckOut:true}))  
-         }
-
-    }
-    const parkingCheckInHandler =(e) => {
-        const {value}=e.target;
-            setParkingCheckIn(value);
-        if(e.target.value){
-           SetErrors((err)=>({...err,parkingCheckIn:false}))
-        }
-        else{
-            SetErrors((err)=>({...err,parkingCheckIn:true}))  
-        }
-    }
-    const departureAirportHandler =(e) => {
-        const {value}=e.target;
-        if(value.length<10){
-            setDepartureAirport(value);
-        }
-        if(e.target.value){
-            SetErrors((err)=>({...err,departureAirport:false}))
-        }
-        else{
-            SetErrors((err)=>({...err,departureAirport:true}))  
-        }
-        const filteredAirportsData = airports.filter((airport) =>
-        airport.name.toLowerCase().includes(e.target.value.toLowerCase())
+  const getAirport = async () => {
+    try {
+      const { data, status } = await axios.get(
+        "http://43.205.1.85:9009/v1/airports"
       );
-      setFilteredAirports(filteredAirportsData ?? []);
-      console.log(filteredAirports);
-    };
-   
-    return (
-        <section id="hero"
-        style={{backgroundImage: `url(${require("./assets/generic_landing.jpg")})`, minHeight: '500px'}}>
+      if (status === 200 && data) {
+        setAirports(data?.results ?? []);
+      } else {
+        setAirports([]);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error.message);
+    }
+  };
+
+  const today = moment().format("YYYY-MM-DD").toString();
+  const tomorrow = moment().add(1, "days").format("YYYY-MM-DD").toString();
+
+  const [departureAirport, setDepartureAirport] = useState("");
+  const [parkingCheckIn, setparkingCheckIn] = useState(today);
+  const [parkingCheckOut, setparkingCheckOut] = useState(tomorrow);
+
+  const [error, setError] = useState({
+    departureAirport: false,
+    parkingCheckIn: false,
+    parkingCheckOut: false,
+  });
+
+  const departureAirportHandler = (e) => {
+    const { value } = e.target;
+    setDepartureAirport(value);
+    if (e.target.value) {
+      setError((error) => ({ ...error, departureAirport: false }));
+    } else {
+      setError((error) => ({ ...error, departureAirport: true }));
+    }
+    const filteredAirportsData = airports.filter((airport) =>
+      airport.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilteredAirports(filteredAirportsData ?? []);
+    console.log(filteredAirports);
+  };
+  const parkingCheckInHandler = (e) => {
+    const { value } = e.target;
+    setparkingCheckIn(value);
+    if (e.target.value) {
+      setError((error) => ({ ...error, parkingCheckIn: false }));
+    }
+    if (moment(value) > moment(parkingCheckOut)) {
+      setError((error) => ({ ...error, parkingCheckIn: true }));
+    } else {
+      setError((error) => ({ ...error, parkingCheckIn: false }));
+    }
+  };
+  const parkingCheckOutHandler = (e) => {
+    const { value } = e.target;
+    setparkingCheckOut(value);
+    if (e.target.value) {
+      setError((err) => ({ ...error, parkingCheckOut: false }));
+    }
+    if (moment(parkingCheckIn) > moment(value)) {
+      setError((err) => ({ ...error, parkingCheckOut: true }));
+    } else {
+      setError((err) => ({ ...error, parkingCheckOut: false }));
+    }
+  };
+
+  const onSubmitHandler = (e) => {
+    // prevents page loading
+    e.preventDefault();
+    if (moment(parkingCheckIn) > moment(parkingCheckOut)) {
+      setError((error) => ({ ...error, parkingCheckOut: true }));
+    } else {
+      if (departureAirport && parkingCheckIn && parkingCheckOut) {
+        navigate(
+          `/results?departureAirport=${departureAirport}&parkingCheckIn=${parkingCheckIn}&parkingCheckOut=${parkingCheckOut}`
+        );
+        //window.location.href = `/results?departureAirport=${departureAirport}&checkin=${parkingCheckIn}&checkout=${parkingCheckOut}`
+        // alert("Form has been submitted successfully 👍");
+        console.log("Form has been submitted successfully 👍");
+      } else {
+        setError({
+          departureAirport: !departureAirport,
+          parkingCheckIn: !parkingCheckIn,
+          parkingCheckOut: !parkingCheckOut,
+        });
+      }
+
+      console.log("Data Entered:");
+      console.log(departureAirport);
+      console.log(parkingCheckIn);
+      console.log(parkingCheckOut);
+    }
+  };
+  return (
+    <section
+      id="hero"
+      style={{
+        backgroundImage: "url('assets/generic_landing.jpg')",
+        minHeight: "500px",
+      }}
+    >
       <div className="hero-backdrop"></div>
       <div className="container position-relative">
         <div className="hero-heading mb-4">
@@ -185,7 +187,7 @@ const SearchForm = () => {
                     onChange={departureAirportHandler}
                     value={departureAirport}
                   />
-                  {records.map((record, index) => {
+                  {/* {records.map((record, index) => {
                     const isEven = index % 2;
                     return (
                       <li
@@ -195,13 +197,14 @@ const SearchForm = () => {
                         {record.name}
                       </li>
                     );
-                  })} 
+                  })} */}
                   {Loading ? <h1>Loading</h1> : null}
+                  {/* after it will go to airportsuggestion page */}
                   <AirportSuggetions
                     airports={filteredAirports}
                     selectAirport={selectAirport}
                   />
-                  {errors.departureAirport ? (
+                  {error.departureAirport ? (
                     <div className="error">
                       <h2>Invalid Departure Airport</h2>
                     </div>
@@ -216,13 +219,13 @@ const SearchForm = () => {
                     <input
                       name="checkin"
                       type="date"
-                      placeholder="Parking Check-Out"
+                      placeholder="Parking Check-In"
                       className="placeholder placeholder-airport"
                       style={{ width: "100%" }}
                       value={parkingCheckIn}
                       onChange={parkingCheckInHandler}
                     />
-                    {errors && errors.parkingCheckIn ? (
+                    {error && error.parkingCheckIn ? (
                       <h3>Invalid Parking Check-In</h3>
                     ) : null}
                   </div>
@@ -238,7 +241,7 @@ const SearchForm = () => {
                     value={parkingCheckOut}
                     onChange={parkingCheckOutHandler}
                   />
-                  {errors && errors.parkingCheckOut ? (
+                  {error && error.parkingCheckOut ? (
                     <h3>Invalid Parking Check-Out</h3>
                   ) : null}
                 </label>

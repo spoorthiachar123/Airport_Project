@@ -6,10 +6,10 @@ const Login = () => {
         <div>
             <h1>Login Demo Page</h1>
             <Link to="/">
-            <h3>
-                Back to Home Page
-            </h3>
-        </Link>
+                <h3>
+                    Back to Home Page
+                </h3>
+            </Link>
         </div>
     );
 }

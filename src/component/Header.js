@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 const Header = () => {
     return (
-        
+
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand" href="/"><img src={require("./assets/navigation_logo.png")}
-                        alt="AIRPORT PARKING - RESERVATIONS.COM" height="40" /></a>
+                <a className="navbar-brand" href="/"><img src={require("../pages/assets/navigation_logo.png")}
+                    alt="AIRPORT PARKING - RESERVATIONS.COM" height="40" /></a>
 
 
                 <div className="col"></div>
@@ -15,9 +15,10 @@ const Header = () => {
 
                 <div className="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
-                    <li className="nav-item">
+                        <li className="nav-item">
+                            {/* Link is used here to avoid page loading */}
                             <Link className="nav-link" to="login">
-                               Login
+                                Login
                             </Link>
                         </li>
 
@@ -38,7 +39,7 @@ const Header = () => {
                 </div>
             </nav>
         </header>
-   
+
     );
 };
 

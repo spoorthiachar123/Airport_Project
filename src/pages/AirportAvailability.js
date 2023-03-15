@@ -14,6 +14,7 @@ const AirportAvailability = () => {
               aria-label="Close"
               className="close"
             >
+              {/* closing Icon */}
               <span aria-hidden="true">×</span>
             </button>{" "}
             <i className="fas fa-info-sign"></i>
@@ -22,6 +23,8 @@ const AirportAvailability = () => {
           <div className="heading w-100">
             <div className="searchbox-inline">
               <div className="searchbox">
+                {/* anyone click pn this form the method is post and it wont do any action as action is empty */}
+                {/* also here autocomple is off to avoid suggestion */}
                 <form action="" method="post" autocomplete="off" novalidate="">
                   <div className="display row m-0 px-3 pt-2 pb-3">
                     <div className="mt-2 pr-3">
@@ -41,6 +44,7 @@ const AirportAvailability = () => {
                       <div className="pr-3">
                         <h6 className="invisible">e</h6>{" "}
                         <span className="cancel">
+                          {/* when we click on this the page will render to slash */}
                           <a href="\">Edit Search</a>
                         </span>
                       </div>
@@ -80,6 +84,7 @@ const AirportAvailability = () => {
                             Sort By<i className="fas fa-angle-down"></i>
                           </p>
                           <div
+                          // here inline css used and we need to write in curley braces
                             className="filter-menu"
                             style={{ opacity: 0, top: "0px", display: "none" }}
                           >
@@ -126,6 +131,7 @@ const AirportAvailability = () => {
                 </div>
                 <div>
                   <div className="list-enter-to">
+                    {/* if any one clicks then href link is opened in new page because target =blank */}
                     <a
                       href="/lot_sonesta_miami_airport_mia"
                       target="_blank"
@@ -201,7 +207,7 @@ const AirportAvailability = () => {
           </div>
           <div className="col-lg p-0 map-section">
             <section id="map_container" className="">
-              <img src={require("./assets/map.png")}alt="" style={{ width: "650px" }} />
+              <img src={require("./assets/map.png")} alt="" style={{ width: "650px" }} />
             </section>
           </div>
         </div>
