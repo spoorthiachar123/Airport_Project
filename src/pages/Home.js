@@ -6,13 +6,13 @@ import moment from "moment";
 import axios from "axios";
 import { useEffect } from "react";
 import AirportSuggetions from "../components/AirportSuggetions";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 const SearchForm = () => {
     // useState is used to change or reassign the perticular value during any changes
     const [airports, setAirports] = useState([]);
     const [filteredAirports, setFilteredAirports] = useState("");
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [records, setRecords] = useState([]);
     const [Loading, setLoading] = useState(true);
     // async function return the promises
@@ -111,9 +111,9 @@ const SearchForm = () => {
             setError((error) => ({ ...error, parkingCheckOut: true }));
         } else {
             if (departureAirport && parkingCheckIn && parkingCheckOut) {
-                navigate(
-                    `/results?departureAirport=${departureAirport}&parkingCheckIn=${parkingCheckIn}&parkingCheckOut=${parkingCheckOut}`
-                );
+                // navigate(
+                //     `/results?departureAirport=${departureAirport}&parkingCheckIn=${parkingCheckIn}&parkingCheckOut=${parkingCheckOut}`
+                // );
                 //window.location.href = `/results?departureAirport=${departureAirport}&checkin=${parkingCheckIn}&checkout=${parkingCheckOut}`
                 // alert("Form has been submitted successfully 👍");
                 console.log("Form has been submitted successfully 👍");
