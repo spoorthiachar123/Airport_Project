@@ -289,7 +289,7 @@ function HomePage() {
                                     <div className="hero-backdrop"></div>
                                     <div className="container position-relative">
                                         <div className="hero-heading mb-4">
-                                            <h1>SAVE BIG ON AIRPORT PARKING</h1>
+                                            {/* <h1>SAVE BIG ON AIRPORT PARKING</h1> */}
                                             <h2>We have the best deals for airport parking lots!</h2>
                                         </div>
                                         <div className="searchbox landing">
