@@ -5,7 +5,7 @@ import moment from "moment";
 // axios is use to fecth a data from api
 import axios from "axios";
 import { useEffect } from "react";
-import AirportSuggetions from "../component/AirportSuggetions";
+import AirportSuggetions from "../components/AirportSuggetions";
 import { useNavigate } from "react-router-dom";
 const SearchForm = () => {
     // useState is used to change or reassign the perticular value during any changes
