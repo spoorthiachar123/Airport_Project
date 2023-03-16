@@ -17,7 +17,7 @@ const AirportSuggetions = ({ airports = [], selectAirport }) => {
                         // when we hover over this li our mouse arrow become pointer
                         cursor: "pointer"
                     }}
-                    // onlick takes an arrow function inside of which we call another function with a parameters as we fetch it from airport.name
+                        // onlick takes an arrow function inside of which we call another function with a parameters as we fetch it from airport.name
                         onClick={() => selectAirport(airport.name)}
                     >
                         {/* it display all the name of a airport from the airport array */}
