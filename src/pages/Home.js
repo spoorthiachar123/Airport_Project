@@ -196,7 +196,7 @@ const SearchForm = () => {
                       </li>
                     );
                   })} */}
-                                    {Loading ? <h1>Loading</h1> : null}
+                                    {Loading ? <h1>loading..</h1> : null}
                                     {/* after it will go to airportsuggestion page */}
                                     <AirportSuggetions
                                         airports={filteredAirports}
