@@ -39,6 +39,7 @@ const SearchForm = () => {
 
     const getAirport = async () => {
         try {
+            setLoading(true);
             const { data, status } = await axios.get("https://rl.talentcoco.in/v1/airports");
             if (status === 200 && data) {
                 setAirports(data?.results ?? []);
