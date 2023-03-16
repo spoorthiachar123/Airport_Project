@@ -20,7 +20,7 @@ const SearchForm = () => {
   const fetchData = async () => {
     setLoading(true);
 // await wont execute below statements until data is fecth from URL
-    const { data } = await axios.get("http://43.205.1.85:9009/v1/airports");
+    const { data } = await axios.get("https://rl.talentcoco.in/v1/airports");
     setLoading(false);
     setRecords(data.results);
   };
@@ -40,9 +40,7 @@ const SearchForm = () => {
 
   const getAirport = async () => {
     try {
-      const { data, status } = await axios.get(
-        "http://43.205.1.85:9009/v1/airports"
-      );
+      const { data, status } = await axios.get("https://rl.talentcoco.in/v1/airports");
       if (status === 200 && data) {
         setAirports(data?.results ?? []);
       } else {
